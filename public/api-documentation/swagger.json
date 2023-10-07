@@ -1,0 +1,300 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Your API",
+        "description": "API documentation",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/bookings": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "List bookings",
+                "description": "Returns a list of bookings that are registered on a server",
+                "operationId": "list_bookings",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for paginated results",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "startDate",
+                        "in": "query",
+                        "description": "Start date to filter between dates",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-12-01"
+                        }
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "description": "End date to filter between dates",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-12-15"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of bookings"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Create a new booking",
+                "description": "Adds a new booking with the provided information.",
+                "operationId": "create_booking",
+                "requestBody": {
+                    "description": "Booking information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "personName",
+                                    "date"
+                                ],
+                                "properties": {
+                                    "personName": {
+                                        "description": "The name of the person making the booking",
+                                        "type": "string",
+                                        "example": "Pedro Gouveia"
+                                    },
+                                    "date": {
+                                        "description": "Date of the booking",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Booking created successfully"
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Delete a booking with given name and date",
+                "description": "Deletes all bookings with the same person name and date.",
+                "operationId": "delete_booking_by_personName_and_date",
+                "requestBody": {
+                    "description": "Booking information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "personName",
+                                    "date"
+                                ],
+                                "properties": {
+                                    "personName": {
+                                        "description": "The name of the person who booked the class",
+                                        "type": "string",
+                                        "example": "Pedro Gouveia"
+                                    },
+                                    "date": {
+                                        "description": "The date of the booking",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-15"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Booking deleted successfully"
+                    },
+                    "404": {
+                        "description": "Booking not found within the specified date and name"
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/classes": {
+            "get": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "List classes",
+                "description": "Returns a list of classes that are registered on a server",
+                "operationId": "list_classes",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for paginated results",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of classes"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "Create a new class",
+                "description": "Adds a new class with the provided information.",
+                "operationId": "create_class",
+                "requestBody": {
+                    "description": "Class information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "startDate",
+                                    "endDate",
+                                    "capacity"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the class",
+                                        "type": "string",
+                                        "example": "Cycling"
+                                    },
+                                    "startDate": {
+                                        "description": "The start date of the class",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-01"
+                                    },
+                                    "endDate": {
+                                        "description": "The end date of the class",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-15"
+                                    },
+                                    "capacity": {
+                                        "description": "The maximum capacity of the class",
+                                        "type": "integer",
+                                        "example": 30
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Class created successfully"
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "Delete classes between startDate and endDate",
+                "description": "Deletes all classes within the specified date range.",
+                "operationId": "delete_classes_by_date_range",
+                "requestBody": {
+                    "description": "Class information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "startDate",
+                                    "endDate"
+                                ],
+                                "properties": {
+                                    "startDate": {
+                                        "description": "The start date of the class",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-01"
+                                    },
+                                    "endDate": {
+                                        "description": "The end date of the class",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-15"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Classes deleted successfully"
+                    },
+                    "404": {
+                        "description": "Classes not found within the specified date range"
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        }
+    }
+}
