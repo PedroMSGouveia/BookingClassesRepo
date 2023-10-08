@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Repositories;
 
-use App\Helpers\ExistsBookingParams;
+use App\Helpers\BookingsHelper;
 use App\Helpers\ValidateBookingExistsParams;
 use App\Models\Bookings;
+use stdClass;
 
 class BookingsRepository
 {
@@ -14,34 +17,42 @@ class BookingsRepository
      * @param  int $page when set returns the data with pagination, the specific page
      * @return void
      */
-    public function getBookings(string $startDate = null, string $endDate = null, int $page = null)
+    public function getBookings(BookingsHelper $params): mixed
     {
         $query = Bookings::query();
 
-        $bookings = null;
-
-        if (!is_null($startDate)) {
+        if (isset($params->startDate)) {
+            $startDate = $params->startDate;
             $query->whereHas('class', function ($query) use ($startDate) {
                 $query->where('date', '>=', $startDate);
             });
         }
 
-        if (!is_null($endDate)) {
+        if (isset($params->endDate)) {
+            $endDate = $params->endDate;
             $query->whereHas('class', function ($query) use ($endDate) {
                 $query->where('date', '<=', $endDate);
             });
         }
 
-        if (!is_null($page)) {
-            $bookings = $query->with('class')->paginate(config('constants.pagination.page_size'));
+        if (isset($params->page)) {
+            $results = $query->with('class')->paginate(config('constants.pagination.page_size'));
+            $responseData = [
+                'total' => $results->total(),
+                'count' => count($results->items()),
+                'data' => $results->items(),
+            ];
         } else {
-            $bookings = $query->with('class')->get();
+            $results = $query->with('class')->get();
+            $responseData = [
+                'data' => $results,
+            ];
         }
 
-        return $bookings;
+        return $responseData;
     }
 
-    public function addBooking(string $personName, int $classId)
+    public function addBooking(string $personName, int $classId): Bookings
     {
         return Bookings::create([
             'person_name' => $personName,
@@ -49,17 +60,17 @@ class BookingsRepository
         ]);
     }
 
-    public function deleteBookings(string $personName, int $classId)
+    public function deleteBookings(BookingsHelper $params): int
     {
-        return Bookings::where('classes_id', '=', $classId)
-        ->where('person_name', '=', $personName)
+        return Bookings::where('classes_id', '=', $params->classesId)
+        ->where('person_name', '=', $params->personName)
         ->delete();
     }
 
-    public function existsBooking(ExistsBookingParams $data): bool
+    public function existsBookingFromPersonName(BookingsHelper $params): bool
     {
-        return Bookings::where('person_name', $data->getPersonName())
-        ->where('date', $data->getDate())
+        return Bookings::where('person_name', $params->personName)
+        ->where('classes_id', $params->classesId)
         ->exists();
     }
 }

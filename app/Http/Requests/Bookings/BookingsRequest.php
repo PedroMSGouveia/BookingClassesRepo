@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Bookings;
 
 use App\Exceptions\CustomValidationException;
@@ -18,12 +20,7 @@ class BookingsRequest extends FormRequest
         return [];
     }
 
-    /**
-     * Get the validation error messages
-     *
-     * @return string REVER
-     */
-    public function messages()
+    public function messages(): array
     {
         return [
             'page.integer' => 'The page field must be an integer.',

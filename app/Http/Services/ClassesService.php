@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Services;
 
 use App\Exceptions\ClassNotFoundException;
@@ -18,25 +20,12 @@ class ClassesService
         $this->classesRepository = $classesRepository;
     }
 
-    /**
-     * getAllClasses
-     * The main goal of this function is to get all classes from database
-     * It includes all bookings inside the class
-     * @param  int $page when set returns the data with pagination, the specific page
-     * @return void
-     */
-    public function getAllClasses(int $page = null)
+    public function getAllClasses(ClassesHelper $params): mixed
     {
-        return $this->classesRepository->getClasses($page);
+        return $this->classesRepository->getClasses($params);
     }
 
-    /**
-     * addClasses
-     * By receiving a start date and end date it inserts as many classes as there are days between those two dates
-     * @param  mixed $data has all validated fields from request body
-     * @return Classes[] returns a array of the inserted classes
-     */
-    public function addClasses(ClassesHelper $data) //criar objeto com params (AddClassesParams)
+    public function addClasses(ClassesHelper $data): Classes|array
     {
         $startDate = Carbon::parse($data->startDate);
         $endDate = Carbon::parse($data->endDate);
@@ -46,7 +35,7 @@ class ClassesService
         $createdClasses = [];
         for ($i = 0; $i <= $numberOfDays; $i++) {
             $classDate = $startDate->copy()->addDays($i);
-
+            $classDate = $classDate->format('Y-m-d');
             $class = $this->classesRepository->addClass($data->name, $classDate, $data->capacity);
 
             $createdClasses[] = $class;
@@ -55,18 +44,14 @@ class ClassesService
         return $createdClasses;
     }
 
-    public function deleteClass(ClassesHelper $data)
+    public function deleteClass(ClassesHelper $data): int
     {
         $deletedRows = $this->classesRepository->deleteClasses($data);
-
-        if(is_null($deletedRows) || $deletedRows === 0){
-            throw new ClassNotFoundException();
-        }
 
         return $deletedRows;
     }
 
-    public function getClassIdByDate(string $date)
+    public function getClassIdByDate(string $date): int
     {
         $classId = $this->classesRepository->getClassIdByDate($date);
 

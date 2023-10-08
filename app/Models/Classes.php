@@ -16,7 +16,7 @@ class Classes extends Model
         return $this->hasMany(Bookings::class);
     }
 
-    public static function getIdByDate($date)
+    public static function getIdByDate($date): int
     {
         return self::where('date', $date)
                    ->value('id');

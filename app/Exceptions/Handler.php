@@ -30,6 +30,18 @@ class Handler extends ExceptionHandler
             }
         });
 
+        $this->renderable(function (DuplicateClassesException $dce, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json(['message' => $dce->getMessage()], 403);
+            }
+        });
+
+        $this->renderable(function (DuplicateBookingsException $dbe, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json(['message' => $dbe->getMessage()], 403);
+            }
+        });
+
         $this->renderable(function (InvalidFormatException $ive, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json(['message' =>'Date format error'], 400);

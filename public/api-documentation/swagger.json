@@ -173,6 +173,16 @@
                             "type": "integer",
                             "default": 1
                         }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Class name",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Cycling"
+                        }
                     }
                 ],
                 "responses": {
