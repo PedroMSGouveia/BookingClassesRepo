@@ -15,7 +15,7 @@ class UtilsService
      * parseDate
      * Parse string date to Date type
      * @param  mixed $date
-     * @return Carbon
+     * @return mixed
      */
     public function parseDate($date)
     {

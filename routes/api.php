@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\BookingsApiController;
-use App\Http\Controllers\Api\ClassesApiController;
+use App\Http\Controllers\Api\BookingsController;
+use App\Http\Controllers\Api\ClassesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +16,11 @@ use App\Http\Controllers\Api\ClassesApiController;
 |
 */
 
-Route::get('/classes', [ClassesApiController::class, 'getAllClasses']);
-Route::post('/classes', [ClassesApiController::class, 'storeClass']);
-Route::delete('/classes', [ClassesApiController::class, 'deleteClassesByDateRange']);
+Route::get('/classes', [ClassesController::class, 'getAllClasses']);
+Route::post('/classes', [ClassesController::class, 'storeClass']);
+Route::delete('/classes', [ClassesController::class, 'deleteClassesByDateRange']);
 
 
-Route::get('/bookings', [BookingsApiController::class, 'getAllBookings']);
-Route::post('/bookings', [BookingsApiController::class, 'storeBooking']);
-Route::delete('/bookings', [BookingsApiController::class, 'deleteBooking']);
+Route::get('/bookings', [BookingsController::class, 'getAllBookings']);
+Route::post('/bookings', [BookingsController::class, 'storeBooking']);
+Route::delete('/bookings', [BookingsController::class, 'deleteBooking']);

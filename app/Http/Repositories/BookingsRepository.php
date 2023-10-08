@@ -2,6 +2,8 @@
 
 namespace App\Http\Repositories;
 
+use App\Helpers\ExistsBookingParams;
+use App\Helpers\ValidateBookingExistsParams;
 use App\Models\Bookings;
 
 class BookingsRepository
@@ -47,10 +49,17 @@ class BookingsRepository
         ]);
     }
 
-    public function deleteBookings(string $personName, string $date)
+    public function deleteBookings(string $personName, int $classId)
     {
-        return Bookings::where('date', '=', $date)
-        ->where('personName', '=', $personName)
+        return Bookings::where('classes_id', '=', $classId)
+        ->where('person_name', '=', $personName)
         ->delete();
+    }
+
+    public function existsBooking(ExistsBookingParams $data): bool
+    {
+        return Bookings::where('person_name', $data->getPersonName())
+        ->where('date', $data->getDate())
+        ->exists();
     }
 }

@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 
-class CustomValidationException extends ValidationException
+class CustomValidationException extends ValidationException //Change class name (CustomValidationException) para (Change)
 {
     public $errors;
 

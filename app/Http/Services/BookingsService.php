@@ -32,15 +32,16 @@ class BookingsService
         return $this->bookingsRepository->getBookings($startDate, $endDate, $page);
     }
 
-    public function storeBooking(string $personName, Carbon $date): Bookings
+    public function storeBooking(string $personName, mixed $date): Bookings
     {
         $classId = $this->classesService->getClassIdByDate($date);
         return $this->bookingsRepository->addBooking($personName, $classId);
     }
 
-    public function deleteBookings(string $personName, Carbon $date): int
+    public function deleteBookings(string $personName, mixed $date): int
     {
-        $deletedRows = $this->bookingsRepository->deleteBookings($personName, $date);
+        $classId = $this->classesService->getClassIdByDate($date);
+        $deletedRows = $this->bookingsRepository->deleteBookings($personName, $classId);
 
         if(is_null($deletedRows) || $deletedRows === 0){
             throw new BookingNotFoundException();

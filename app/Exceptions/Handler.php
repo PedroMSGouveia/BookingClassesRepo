@@ -10,20 +10,6 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * The list of the inputs that are never flashed to the session on validation exceptions.
-     *
-     * @var array<int, string>
-     */
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
-
-    /**
-     * Register the exception handling callbacks for the application.
-     */
     public function register(): void
     {
         $this->renderable(function (CustomValidationException $cve, Request $request) {
@@ -52,6 +38,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Exception $e, Request $request) {
             if ($request->is('api/*')) {
+                //return response()->json(['message' =>$e->getMessage()], 500);
                 return response()->json(['message' =>'Something went wrong, please try again later'], 500);
             }
         });

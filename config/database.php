@@ -95,6 +95,14 @@ return [
 
     ],
 
+    'testing' => [
+        'driver' => 'mysql',
+        'host' => env('DB_TEST_HOST', '127.0.0.1'),
+        'port' => env('DB_TEST_PORT', '3306'),
+        'database' => env('DB_TEST_DATABASE', 'testing_db')
+        // Other database configuration options...
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Migration Repository Table

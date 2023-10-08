@@ -2,7 +2,11 @@
 
 namespace App\Http\Repositories;
 
+use App\Exceptions\ClassNotFoundException;
+use App\Helpers\ClassesHelper;
+use App\Helpers\ExistsClassDateInterval;
 use App\Models\Classes;
+use Symfony\Component\ErrorHandler\Error\ClassNotFoundError;
 
 class ClassesRepository
 {
@@ -32,14 +36,32 @@ class ClassesRepository
         ]);
     }
 
-    public function deleteClasses(string $startDate, string $endDate)
+    public function deleteClasses(ClassesHelper $data)
     {
-        return Classes::where('date', '>=', $startDate)
-                ->where('date', '<=', $endDate)
+        return Classes::where('date', '>=', $data->startDate)
+                ->where('date', '<=', $data->endDate)
                 ->delete();
     }
 
-    public function getClassIdByDate(string $date): int{
-        return Classes::getIdByDate($date);
+    public function getClassIdByDate(string $date)
+    {
+        $classId = Classes::getIdByDate($date);
+
+        if(is_null($classId)) throw new ClassNotFoundException();
+
+        return $classId;
+    }
+
+    public function existsClassesFromDate(string $date)
+    {
+        return Classes::where('date', $date)
+        ->exists();
+    }
+
+    public function existsClassesFromDateInterval(ClassesHelper $data)
+    {
+        return Classes::where('date', '>=', $data->startDate)
+        ->where('date', '<=', $data->endDate)
+        ->exists();
     }
 }

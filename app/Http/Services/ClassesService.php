@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Exceptions\ClassNotFoundException;
+use App\Helpers\ClassesHelper;
 use App\Http\Repositories\ClassesRepository;
 use App\Models\Classes;
 use Carbon\Carbon;
@@ -35,12 +36,10 @@ class ClassesService
      * @param  mixed $data has all validated fields from request body
      * @return Classes[] returns a array of the inserted classes
      */
-    public function addClasses($data)
+    public function addClasses(ClassesHelper $data) //criar objeto com params (AddClassesParams)
     {
-        $name = $data['name'];
-        $startDate = Carbon::parse($data['startDate']);
-        $endDate = Carbon::parse($data['endDate']);
-        $capacity = $data['capacity'];
+        $startDate = Carbon::parse($data->startDate);
+        $endDate = Carbon::parse($data->endDate);
 
         $numberOfDays = $endDate->diffInDays($startDate);
 
@@ -48,7 +47,7 @@ class ClassesService
         for ($i = 0; $i <= $numberOfDays; $i++) {
             $classDate = $startDate->copy()->addDays($i);
 
-            $class = $this->classesRepository->addClass($name, $classDate, $capacity);
+            $class = $this->classesRepository->addClass($data->name, $classDate, $data->capacity);
 
             $createdClasses[] = $class;
         }
@@ -56,9 +55,9 @@ class ClassesService
         return $createdClasses;
     }
 
-    public function deleteClass(Carbon $startDate, Carbon $endDate)
+    public function deleteClass(ClassesHelper $data)
     {
-        $deletedRows = $this->classesRepository->deleteClasses($startDate, $endDate);
+        $deletedRows = $this->classesRepository->deleteClasses($data);
 
         if(is_null($deletedRows) || $deletedRows === 0){
             throw new ClassNotFoundException();
@@ -67,7 +66,8 @@ class ClassesService
         return $deletedRows;
     }
 
-    public function getClassIdByDate(string $date):int{
+    public function getClassIdByDate(string $date)
+    {
         $classId = $this->classesRepository->getClassIdByDate($date);
 
         if(is_null($classId)){
