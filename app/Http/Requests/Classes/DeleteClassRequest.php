@@ -6,7 +6,7 @@ namespace App\Http\Requests\Classes;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteClassRequest extends FormRequest
+class DeleteClassRequest extends ClassRequest
 {
     public function rules(): array
     {
