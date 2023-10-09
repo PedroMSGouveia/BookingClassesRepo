@@ -67,4 +67,4 @@ To run tests, run the following command
 ```bash
   php artisan test
 ```
-That should output all 29 passed tests to the terminal.
+That should output all 34 passed tests to the terminal.
