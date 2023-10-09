@@ -49,14 +49,14 @@ class ClassesRepository
         ]);
     }
 
-    public function deleteClasses(ClassesHelper $data): int
+    public function deleteClasses(ClassesHelper $data): ?int
     {
         return Classes::where('date', '>=', $data->startDate)
                 ->where('date', '<=', $data->endDate)
                 ->delete();
     }
 
-    public function getClassIdByDate(string $date):int
+    public function getClassIdByDate(string $date): ?int
     {
         $classId = Classes::getIdByDate($date);
 

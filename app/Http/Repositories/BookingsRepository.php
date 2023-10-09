@@ -60,7 +60,7 @@ class BookingsRepository
         ]);
     }
 
-    public function deleteBookings(BookingsHelper $params): int
+    public function deleteBookings(BookingsHelper $params): ?int
     {
         return Bookings::where('classes_id', '=', $params->classesId)
         ->where('person_name', '=', $params->personName)

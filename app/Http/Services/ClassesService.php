@@ -44,14 +44,14 @@ class ClassesService
         return $createdClasses;
     }
 
-    public function deleteClass(ClassesHelper $data): int
+    public function deleteClass(ClassesHelper $data): ?int
     {
         $deletedRows = $this->classesRepository->deleteClasses($data);
 
         return $deletedRows;
     }
 
-    public function getClassIdByDate(string $date): int
+    public function getClassIdByDate(string $date): ?int
     {
         $classId = $this->classesRepository->getClassIdByDate($date);
 
