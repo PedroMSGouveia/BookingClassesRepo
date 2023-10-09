@@ -12,6 +12,8 @@ class Classes extends Model
     protected $table = 'classes';
     protected $fillable = ['name', 'date', 'capacity'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function bookings(){
         return $this->hasMany(Bookings::class);
     }

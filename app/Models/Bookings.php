@@ -12,6 +12,8 @@ class Bookings extends Model
     protected $table = 'bookings';
     protected $fillable = ['classes_id', 'person_name'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function class()
     {
         return $this->belongsTo(Classes::class, 'classes_id', 'id');
