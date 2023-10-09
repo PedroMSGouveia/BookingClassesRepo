@@ -8,6 +8,6 @@ class ClassNotFoundException extends Exception
 {
     public function __construct()
     {
-        $this->message = 'Class not found';
+        $this->message = 'Class not found for the specified date';
     }
 }

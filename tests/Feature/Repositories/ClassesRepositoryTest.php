@@ -16,6 +16,57 @@ class ClassesRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function testGetClassesWithPages(): void
+    {
+        $repository = new ClassesRepository();
+
+        Classes::factory(11)->create();
+
+        $params = ClassesHelper::withStdClass((object) ['page'=>2]);
+        $responseData = $repository->getClasses($params);
+        $this->assertEquals(11, $responseData['total']);
+        $this->assertCount(1, $responseData['data']);
+    }
+
+    public function testGetClassesWithName(): void
+    {
+        $repository = new ClassesRepository();
+
+        Classes::factory(2)->create(['name'=>'Cycling']);
+        Classes::factory(10)->create(['name'=>'Zumba']);
+
+        $params = ClassesHelper::withStdClass((object) ['name'=>'Cycling']);
+        $responseData = $repository->getClasses($params);
+        $this->assertCount(2, $responseData['data']);
+        $this->assertEquals($params->name, $responseData['data'][0]->name);
+    }
+
+    public function testGetClassesWithDates(): void
+    {
+        $repository = new ClassesRepository();
+
+        Classes::factory()->create(['date'=>'2023-12-01']);
+        Classes::factory()->create(['date'=>'2023-12-02']);
+        Classes::factory()->create(['date'=>'2023-12-03']);
+        Classes::factory()->create(['date'=>'2023-12-04']);
+
+        $params = ClassesHelper::withDates('2023-12-01', '2023-12-02');
+        $responseData = $repository->getClasses($params);
+        $this->assertCount(2, $responseData['data']);
+
+        $params = ClassesHelper::withStdClass((object)['startDate'=>'2023-12-01']);
+        $responseData = $repository->getClasses($params);
+        $this->assertCount(4, $responseData['data']);
+
+        $params = ClassesHelper::withStdClass((object)['startDate'=>'2023-12-04']);
+        $responseData = $repository->getClasses($params);
+        $this->assertCount(1, $responseData['data']);
+
+        $params = ClassesHelper::withStdClass((object)['endDate'=>'2023-12-03']);
+        $responseData = $repository->getClasses($params);
+        $this->assertCount(3, $responseData['data']);
+    }
+
     public function testAddClass(): void
     {
 

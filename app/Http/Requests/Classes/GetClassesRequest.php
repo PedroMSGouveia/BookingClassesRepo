@@ -11,6 +11,12 @@ class GetClassesRequest extends ClassRequest
         return [
             'page' => 'integer|min:1',
             'name' => 'string',
+            'startDate' => 'date|date_format:Y-m-d',
+            'endDate' =>  [
+                'date',
+                'date_format:Y-m-d',
+                $this->input('startDate') !== null ? 'after_or_equal:startDate' : ''
+            ],
         ];
     }
 }

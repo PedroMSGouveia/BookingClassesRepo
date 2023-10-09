@@ -40,6 +40,20 @@ class BookingsController extends Controller
      *         @OA\Schema(type="integer", default=1)
      *     ),
      *     @OA\Parameter(
+     *         name="className",
+     *         in="query",
+     *         description="Class name",
+     *         required=false,
+     *         @OA\Schema(type="string", example="Cycling")
+     *     ),
+     *     @OA\Parameter(
+     *         name="personName",
+     *         in="query",
+     *         description="Booked person name",
+     *         required=false,
+     *         @OA\Schema(type="string", example="Pedro Gouveia")
+     *     ),
+     *     @OA\Parameter(
      *         name="startDate",
      *         in="query",
      *         description="Start date to filter between dates",
@@ -93,6 +107,10 @@ class BookingsController extends Controller
      *     @OA\Response(
      *         response=400,
      *         description="Bad request, invalid input",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Class not found for the specified date",
      *     ),
      *     @OA\Response(
      *         response=500,

@@ -15,6 +15,17 @@ class BookingsRepository
     {
         $query = Bookings::query();
 
+        if (isset($params->className)) {
+            $className = $params->className;
+            $query->whereHas('class', function ($query) use ($className) {
+                $query->whereRaw("UPPER(name) LIKE '%". strtoupper($className)."%'");
+            });
+        }
+
+        if (isset($params->personName)) {
+            $query->whereRaw("UPPER(person_name) LIKE '%". strtoupper($params->personName)."%'");
+        }
+
         if (isset($params->startDate)) {
             $startDate = $params->startDate;
             $query->whereHas('class', function ($query) use ($startDate) {
@@ -30,7 +41,8 @@ class BookingsRepository
         }
 
         if (isset($params->page)) {
-            $results = $query->with('class')->paginate(config('constants.pagination.page_size'));
+            $page = $params->page;
+            $results = $query->with('class')->paginate(config('constants.pagination.page_size'), ['*'], 'page', $page);
             $responseData = [
                 'total' => $results->total(),
                 'count' => count($results->items()),

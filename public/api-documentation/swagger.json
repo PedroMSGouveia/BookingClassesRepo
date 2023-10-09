@@ -26,6 +26,26 @@
                         }
                     },
                     {
+                        "name": "className",
+                        "in": "query",
+                        "description": "Class name",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Cycling"
+                        }
+                    },
+                    {
+                        "name": "personName",
+                        "in": "query",
+                        "description": "Booked person name",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Pedro Gouveia"
+                        }
+                    },
+                    {
                         "name": "startDate",
                         "in": "query",
                         "description": "Start date to filter between dates",
@@ -98,6 +118,9 @@
                     },
                     "400": {
                         "description": "Bad request, invalid input"
+                    },
+                    "404": {
+                        "description": "Class not found for the specified date"
                     },
                     "500": {
                         "description": "Something went wrong"
@@ -182,6 +205,28 @@
                         "schema": {
                             "type": "string",
                             "example": "Cycling"
+                        }
+                    },
+                    {
+                        "name": "startDate",
+                        "in": "query",
+                        "description": "Start date to filter between dates",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-12-01"
+                        }
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "description": "End date to filter between dates",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-12-15"
                         }
                     }
                 ],

@@ -23,8 +23,17 @@ class ClassesRepository
             $query->whereRaw("UPPER(name) LIKE '%". strtoupper($name)."%'");
         }
 
+        if (isset($params->startDate)) {
+            $query->where('date', '>=', $params->startDate);
+        }
+
+        if (isset($params->endDate)) {
+            $query->where('date', '<=', $params->endDate);
+        }
+
         if (isset($params->page)) {
-            $results = $query->with('bookings')->paginate(config('constants.pagination.page_size'));
+            $page = $params->page;
+            $results = $query->with('bookings')->paginate(config('constants.pagination.page_size'), ['*'], 'page', $page);
             $responseData = [
                 'total' => $results->total(),
                 'count' => count($results->items()),

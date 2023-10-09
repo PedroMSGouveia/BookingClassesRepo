@@ -11,11 +11,12 @@ class DeleteClassRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'startDate' => 'required|date',
+            'startDate' => 'required|date|date_format:Y-m-d',
             'endDate' => [
                 'required',
                 'date',
-                'after_or_equal:startDate'
+                'after_or_equal:startDate',
+                'date_format:Y-m-d'
             ]
         ];
     }

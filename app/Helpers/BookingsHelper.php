@@ -14,6 +14,7 @@ class BookingsHelper
     public string $startDate;
     public string $endDate;
     public int $page;
+    public string $className;
 
     public function __construct() { }
 
@@ -24,6 +25,9 @@ class BookingsHelper
         if(isset($data->date)) $instance->date = $data->date;
         if(isset($data->classesId)) $instance->classesId = $data->classesId;
         if(isset($data->page)) $instance->page = (int) $data->page;
+        if(isset($data->className)) $instance->className = $data->className;
+        if(isset($data->startDate)) $instance->startDate = $data->startDate;
+        if(isset($data->endDate)) $instance->endDate = $data->endDate;
         return $instance;
     }
 

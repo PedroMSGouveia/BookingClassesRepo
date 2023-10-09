@@ -19,7 +19,20 @@ class BookingsRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testGetBookings(): void
+    public function testGetBookingsWithPages(): void
+    {
+        $repository = new BookingsRepository();
+
+        $class1 = Classes::factory()->create(['date' => '2023-12-01']);
+        $booking1 = Bookings::factory(11)->create(['classes_id' => $class1->id]);
+
+        $params = BookingsHelper::withStdClass((object) ['page'=>2]);
+        $responseData = $repository->getBookings($params);
+        $this->assertEquals(11, $responseData['total']);
+        $this->assertCount(1, $responseData['data']);
+    }
+
+    public function testGetBookingsWithDates(): void
     {
         $class1 = Classes::factory()->create(['date' => '2023-12-01']);
         $class2 = Classes::factory()->create(['date' => '2023-12-02']);
@@ -32,17 +45,26 @@ class BookingsRepositoryTest extends TestCase
         $responseData = $repository->getBookings($params);
         $this->assertCount(2, $responseData['data']);
 
-
         $this->assertEquals($booking1->id, $responseData['data'][0]->id);
         $this->assertEquals($booking1->name, $responseData['data'][0]->name);
-        $this->assertEquals($booking1->capacity, $responseData['data'][0]->capacity);//aqui é que vais comparar os campos todos da tabela para ver se dão match com a estrutura esperada. Só assim tens um teste de repositorio...
+        $this->assertEquals($booking1->capacity, $responseData['data'][0]->capacity);
+    }
 
+    public function testGetBookingsWithNameFilters(): void
+    {
+        $class1 = Classes::factory()->create(['date' => '2023-12-01', 'name'=>'Cycling']);
+        $class2 = Classes::factory()->create(['date' => '2023-12-02']);
+        $booking1 = Bookings::factory()->create(['classes_id' => $class1->id, 'person_name'=>'Pedro Gouveia']);
+        $booking2 = Bookings::factory()->create(['classes_id' => $class2->id]);
 
-        $class1 = Bookings::factory(10)->create(['classes_id' => $class1->id]);
-        $params = BookingsHelper::withStdClass((object) ['page'=>1]);
+        $repository = new BookingsRepository();
+
+        $params = BookingsHelper::withStdClass((object) ['personName'=>'Pedro Gouveia', 'className'=>'Cycling']);
         $responseData = $repository->getBookings($params);
-        $this->assertEquals(12, $responseData['total']);
-        $this->assertCount(10, $responseData['data']);
+        $this->assertCount(1, $responseData['data']);
+
+        $this->assertEquals($params->personName, $responseData['data'][0]->person_name);
+        $this->assertEquals($params->className, $responseData['data'][0]->class->name);
     }
 
     public function testAddBooking(): void

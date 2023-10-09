@@ -12,7 +12,7 @@ class StoreBookingsRequest extends BookingsRequest
     {
         return [
             'personName' => 'required|string|max:255',
-            'date' => 'required|date'
+            'date' => 'required|date|date_format:Y-m-d'
         ];
     }
 }

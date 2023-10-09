@@ -46,6 +46,20 @@ class ClassesController extends Controller
      *         required=false,
      *         @OA\Schema(type="string", example="Cycling")
      *     ),
+     *     @OA\Parameter(
+     *         name="startDate",
+     *         in="query",
+     *         description="Start date to filter between dates",
+     *         required=false,
+     *         @OA\Schema(type="string", format="date", example="2023-12-01")
+     *     ),
+     *     @OA\Parameter(
+     *         name="endDate",
+     *         in="query",
+     *         description="End date to filter between dates",
+     *         required=false,
+     *         @OA\Schema(type="string", format="date", example="2023-12-15")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of classes",
