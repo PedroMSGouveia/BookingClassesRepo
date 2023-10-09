@@ -12,7 +12,7 @@ class Handler extends ExceptionHandler
 {
     public function register(): void
     {
-        $this->renderable(function (CustomValidationException $cve, Request $request) {
+        $this->renderable(function (RequestValidationException $cve, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json(['message' => 'Validation error', 'errors' => $cve->errors], 400);
             }
@@ -50,8 +50,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Exception $e, Request $request) {
             if ($request->is('api/*')) {
-                return response()->json(['message' =>$e->getMessage()], 500);
-                //return response()->json(['message' =>'Something went wrong, please try again later'], 500);
+                return response()->json(['message' =>'Something went wrong, please try again later'], 500);
             }
         });
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Classes;
 
-use App\Exceptions\CustomValidationException;
+use App\Exceptions\RequestValidationException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 
@@ -41,7 +41,7 @@ class ClassRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new CustomValidationException($validator);
+        throw new RequestValidationException($validator);
     }
 
 }

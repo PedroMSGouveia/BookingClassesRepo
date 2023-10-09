@@ -11,12 +11,6 @@ use stdClass;
 
 class BookingsRepository
 {
-    /**
-     * getClasses
-     * Retrieves all classes from database with the bookings of each one
-     * @param  int $page when set returns the data with pagination, the specific page
-     * @return void
-     */
     public function getBookings(BookingsHelper $params): mixed
     {
         $query = Bookings::query();

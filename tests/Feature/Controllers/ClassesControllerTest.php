@@ -39,8 +39,6 @@ class ClassesControllerTest extends TestCase
         $response ->assertJson([
             'data' => $classes->toArray()
         ]);
-
-        //dd($response); assertEquals com o primeiro inserted
     }
 
     public function testGetAllClassesWithPage(): void
@@ -51,7 +49,7 @@ class ClassesControllerTest extends TestCase
         $response = $this->get('/api/classes?page=1');
 
         $response->assertStatus(200)
-            ->assertJsonStructure([ //tipos
+            ->assertJsonStructure([
                 'data' => [
                     '*' => [
                         'id',

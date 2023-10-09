@@ -15,7 +15,7 @@ class BookingsFactory extends Factory
     public function definition()
     {
         return [
-            'classes_id' => $this->faker->numberBetween(1, 10), // Adjust the range as needed
+            'classes_id' => $this->faker->numberBetween(1, 10),
             'person_name' => $this->faker->name,
         ];
     }

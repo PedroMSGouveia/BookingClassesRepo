@@ -2,6 +2,13 @@
 # Booking classes
 
 ABC Glofox take-home task assignment
+## Features
+
+- Swagger UI for ease of test
+- GET POST and DELETE endpoints both for classes and bookings
+- Request validators with specified error messages
+- Custom validation exceptions
+- Full coverage testing (Controllers, Services, Repositories and Validators)
 ## Configuration
 
 To run this project, you need to follow these configuration steps:

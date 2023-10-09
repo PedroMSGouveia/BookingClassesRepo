@@ -18,7 +18,7 @@ class ClassesValidatorTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testValidateClassExistsFromDateInterval(): void //Verificar mai lhogo
+    public function testValidateClassExistsFromDateInterval(): void
     {
         $repository = $this->createMock(ClassesRepository::class);
         $validator = new ClassesValidator($repository);
@@ -46,7 +46,6 @@ class ClassesValidatorTest extends TestCase
             ->with($data)
             ->willReturn(false);
 
-        // Call the method to be tested
         $this->expectException(ClassNotFoundException::class);
         $validator->validateClassExistsForDelete($data);
     }
