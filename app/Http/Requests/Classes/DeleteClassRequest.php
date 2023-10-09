@@ -15,7 +15,7 @@ class DeleteClassRequest extends FormRequest
             'endDate' => [
                 'required',
                 'date',
-                'after:startDate'
+                'after_or_equal:startDate'
             ]
         ];
     }

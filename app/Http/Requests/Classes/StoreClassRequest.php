@@ -16,7 +16,7 @@ class StoreClassRequest extends ClassRequest
                 'date',
                 'after_or_equal:startDate'
             ],
-            'capacity' => 'required|integer',
+            'capacity' => 'required|integer|min:1',
         ];
     }
 }

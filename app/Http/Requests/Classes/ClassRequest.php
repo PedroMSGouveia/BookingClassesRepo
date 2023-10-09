@@ -33,7 +33,9 @@ class ClassRequest extends FormRequest
             'endDate.after_or_equal' => 'The end date must be after or equal to the start date.',
             'capacity.required' => 'The capacity field is required.',
             'capacity.integer' => 'The capacity field must be an integer.',
+            'capacity.min' => 'The capacity field must be greater than or equal to 1.',
             'page.integer' => 'The page field must be an integer.',
+            'page.min' => 'The page field must be greater than or equal to 1.',
         ];
     }
 

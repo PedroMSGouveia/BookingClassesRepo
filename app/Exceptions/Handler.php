@@ -50,8 +50,8 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Exception $e, Request $request) {
             if ($request->is('api/*')) {
-                //return response()->json(['message' =>$e->getMessage()], 500);
-                return response()->json(['message' =>'Something went wrong, please try again later'], 500);
+                return response()->json(['message' =>$e->getMessage()], 500);
+                //return response()->json(['message' =>'Something went wrong, please try again later'], 500);
             }
         });
     }

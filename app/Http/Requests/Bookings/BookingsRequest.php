@@ -24,6 +24,7 @@ class BookingsRequest extends FormRequest
     {
         return [
             'page.integer' => 'The page field must be an integer.',
+            'page.min' => 'The page field must be greater than or equal to 1.',
             'startDate.date' => 'The start date must be a valid date.',
             'endDate.date' => 'The end date must be a valid date.',
             'endDate.after_or_equal' => 'The end date must be after or equal to the start date.',

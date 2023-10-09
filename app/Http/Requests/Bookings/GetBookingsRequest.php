@@ -11,7 +11,7 @@ class GetBookingsRequest extends BookingsRequest
     public function rules(): array
     {
         return [
-            'page' => 'integer',
+            'page' => 'integer|min:1',
             'startDate' => 'date',
             'endDate' =>  [
                 'date',

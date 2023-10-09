@@ -13,7 +13,7 @@ class GetClassesRequest extends ClassRequest
     public function rules(): array
     {
         return [
-            'page' => 'integer',
+            'page' => 'integer|min:1',
             'name' => 'string',
         ];
     }
