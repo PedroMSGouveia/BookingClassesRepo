@@ -1,15 +1,21 @@
+
 # Booking classes
 
 ABC Glofox take-home task assignment
 ## Configuration
 
-In order to run this project it is need to follow there Configuration steps:
+To run this project, you need to follow these configuration steps:
 
-First Step: Install Xampp at: https://www.apachefriends.org/
+Start by cloning this same repository using the following command:
+```bash
+git clone https://github.com/PedroMSGouveia/BookingClassesRepo.git
+```
+
+Install Xampp at: https://www.apachefriends.org/
 
 **Make sure you tick MySql box to install mysql server**
 
-After that just run Xampp and start Apache and Mysql
+After that just run Xampp then start Apache and Mysql
 ## Installation
 
 In order to install the project just run the command bellow
