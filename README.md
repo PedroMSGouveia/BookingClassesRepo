@@ -22,7 +22,7 @@ Install Xampp at: https://www.apachefriends.org/
 
 **Make sure you tick MySql box to install mysql server**
 
-After that just run Xampp then start Apache and Mysql
+After that just open Xampp control panel and press start no both Apache and Mysql modules
 ## Installation
 
 In order to install the project just run the command bellow
@@ -31,13 +31,13 @@ In order to install the project just run the command bellow
   composer install
 ```
 
-After that we will need to migrate database tables, we will do that for deployment and a seperate one for testing.
+After that we will need to migrate database tables, we will do that for deployment and a separate one for testing.
 
 ```bash
   php artisan migrate
 ```
 
-This command should ask you if you want to insert "laravel" database, just type "Yes". 
+**This command should ask you if you want to insert "laravel" database, just type "Yes".**
 
 Now for testing database:
 
@@ -45,7 +45,9 @@ Now for testing database:
   php artisan migrate --env=testing
 ```
 
-This command, as the one before, should ask you if you want to insert "testing_db" database, just type "Yes". 
+**This command, as the one before, should ask you if you want to insert "testing_db" database, just type "Yes".**
+
+The migration is made in order to create the dev and testing databases with the corresponding tables (classes and bookings)
 ## Deployment
 
 To deploy this project run
