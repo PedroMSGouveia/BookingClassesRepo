@@ -56,6 +56,7 @@ To deploy this project run
   php artisan serve
 ```
 Press ctrl+click on the server link that is shown at the terminal.
+Or Just use this link: http://127.0.0.1:8000
 
 After that you should be able to see swagger api-documentation, where you can test all endpoints.
 
