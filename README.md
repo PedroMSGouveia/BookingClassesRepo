@@ -4,10 +4,11 @@
 ABC Glofox take-home task assignment
 ## Features
 
-- Swagger UI for ease of test
+- Swagger UI for ease of use
 - GET POST and DELETE endpoints both for classes and bookings
-- Request validators with specified error messages
-- Custom validation exceptions
+- Custom classes for each type of request params with proper validation and specified error messages
+- Custom exceptions for each kind of error(Class/booking not found, Duplicate class/booking, Request format exception)
+- Usage of 2 databases, one for dev one for testing
 - Full coverage testing (Controllers, Services, Repositories and Validators)
 ## Configuration
 
@@ -67,4 +68,4 @@ To run tests, run the following command
 ```bash
   php artisan test
 ```
-That should output all 34 passed tests to the terminal.
+That should output all 29 passed tests to the terminal.

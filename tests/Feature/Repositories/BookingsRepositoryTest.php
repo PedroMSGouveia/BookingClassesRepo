@@ -36,8 +36,10 @@ class BookingsRepositoryTest extends TestCase
     {
         $class1 = Classes::factory()->create(['date' => '2023-12-01']);
         $class2 = Classes::factory()->create(['date' => '2023-12-02']);
+        $class3 = Classes::factory()->create(['date' => '2023-12-03']);
         $booking1 = Bookings::factory()->create(['classes_id' => $class1->id]);
         $booking2 = Bookings::factory()->create(['classes_id' => $class2->id]);
+        $booking3 = Bookings::factory()->create(['classes_id' => $class3->id]);
 
         $repository = new BookingsRepository();
 
@@ -45,9 +47,7 @@ class BookingsRepositoryTest extends TestCase
         $responseData = $repository->getBookings($params);
         $this->assertCount(2, $responseData['data']);
 
-        $this->assertEquals($booking1->id, $responseData['data'][0]->id);
-        $this->assertEquals($booking1->name, $responseData['data'][0]->name);
-        $this->assertEquals($booking1->capacity, $responseData['data'][0]->capacity);
+        $this->assertEquals($class1->date, $responseData['data'][0]->class->date);
     }
 
     public function testGetBookingsWithNameFilters(): void
