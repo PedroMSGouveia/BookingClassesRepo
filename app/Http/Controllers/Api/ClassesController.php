@@ -65,6 +65,10 @@ class ClassesController extends Controller
      *         description="List of classes",
      *     ),
      *     @OA\Response(
+     *         response=400,
+     *         description="Bad request, invalid input",
+     *     ),
+     *     @OA\Response(
      *         response=500,
      *         description="Something went wrong",
      *     )
@@ -105,6 +109,10 @@ class ClassesController extends Controller
      *         description="Bad request, invalid input",
      *     ),
      *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden, Class already exists at the specified date",
+     *     ),
+     *     @OA\Response(
      *         response=500,
      *         description="Something went wrong",
      *     )
@@ -136,16 +144,16 @@ class ClassesController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=204,
+     *         response=200,
      *         description="Classes deleted successfully",
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Classes not found within the specified date range",
      *     ),
      *     @OA\Response(
      *         response=400,
      *         description="Bad request, invalid input",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Classes not found within the specified date range",
      *     ),
      *     @OA\Response(
      *         response=500,

@@ -72,6 +72,10 @@ class BookingsController extends Controller
      *         description="List of bookings",
      *     ),
      *     @OA\Response(
+     *         response=400,
+     *         description="Bad request, invalid input",
+     *     ),
+     *     @OA\Response(
      *         response=500,
      *         description="Something went wrong",
      *     )
@@ -109,6 +113,10 @@ class BookingsController extends Controller
      *         description="Bad request, invalid input",
      *     ),
      *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden, Booking already exists at the specified date",
+     *     ),
+     *     @OA\Response(
      *         response=404,
      *         description="Class not found for the specified date",
      *     ),
@@ -144,16 +152,16 @@ class BookingsController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=204,
+     *         response=200,
      *         description="Booking deleted successfully",
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Booking not found within the specified date and name",
      *     ),
      *     @OA\Response(
      *         response=400,
      *         description="Bad request, invalid input",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Booking not found within the specified date and name",
      *     ),
      *     @OA\Response(
      *         response=500,
